@@ -1,7 +1,7 @@
-from flask import Blueprint, request, redirect
+from flask import Blueprint, request, redirect, jsonify
 from datetime import timedelta, date
 
-from short_url.extensions import db
+from short_url import db
 from .models import Link
 
 short = Blueprint('short', __name__)
@@ -17,7 +17,7 @@ def add_link():
     db.session.add(link)
     db.session.commit()
 
-    return link.short_url
+    return jsonify(short_url=link.short_url)
 
 
 @short.route('/<short_url>')

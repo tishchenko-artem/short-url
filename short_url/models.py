@@ -1,7 +1,7 @@
 import string
 from random import choices
 
-from short_url.extensions import db
+from short_url import db
 
 
 class Link(db.Model):

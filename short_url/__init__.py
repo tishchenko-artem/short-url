@@ -1,12 +1,12 @@
-import os
 from threading import Thread
 from flask import Flask
 import time
 import sqlite3
+import os
 
-from .extensions import db
-from .routes import short
-from .models import Link
+from short_url.extensions import db
+from short_url.routes import short
+from short_url.models import Link
 
 
 def threaded_task():
@@ -17,14 +17,13 @@ def threaded_task():
         cursor.execute(sql)
         conn.commit()
         conn.close()
-        print('Delete expired links')
         time.sleep(86400)
 
 
-def create_app(config_file='settings.py'):
+def create_app(config='settings.py'):
     app = Flask(__name__)
 
-    app.config.from_pyfile(config_file)
+    app.config.from_pyfile(config)
 
     db.init_app(app)
 
